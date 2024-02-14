@@ -1,8 +1,6 @@
 <!--  -->
 <template>
-  <div>
-    <h1>404</h1>
-  </div>
+  <div>数据大屏</div>
 </template>
 
 <script setup lang="ts"></script>

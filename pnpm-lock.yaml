@@ -14,12 +14,21 @@ dependencies:
   element-plus:
     specifier: ^2.5.5
     version: 2.5.5(vue@3.4.18)
+  nprogress:
+    specifier: ^0.2.0
+    version: 0.2.0
+  pinia:
+    specifier: ^2.1.7
+    version: 2.1.7(typescript@5.3.3)(vue@3.4.18)
   vue:
     specifier: ^3.4.15
     version: 3.4.18(typescript@5.3.3)
   vue-router:
     specifier: ^4.2.5
     version: 4.2.5(vue@3.4.18)
+  vue-top-progress:
+    specifier: ^0.7.0
+    version: 0.7.0
 
 devDependencies:
   '@babel/eslint-parser':
@@ -3988,6 +3997,10 @@ packages:
       path-key: 3.1.1
     dev: true
 
+  /nprogress@0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
+    dev: false
+
   /nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
     dependencies:
@@ -4212,6 +4225,24 @@ packages:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
     dev: true
+
+  /pinia@2.1.7(typescript@5.3.3)(vue@3.4.18):
+    resolution: {integrity: sha512-+C2AHFtcFqjPih0zpYuvof37SFxMQ7OEG2zV9jRI12i9BOy3YQVAHwdKtyyc8pDcDyIc33WCIsZaCFWU7WWxGQ==}
+    peerDependencies:
+      '@vue/composition-api': ^1.4.0
+      typescript: '>=4.4.4'
+      vue: ^2.6.14 || ^3.3.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': 6.5.1
+      typescript: 5.3.3
+      vue: 3.4.18(typescript@5.3.3)
+      vue-demi: 0.14.7(vue@3.4.18)
+    dev: false
 
   /posix-character-classes@0.1.1:
     resolution: {integrity: sha512-xTgYBc3fuo7Yt7JbiuFxSYGToMoz8fLoE6TC9Wx1P/u+LfeThMOAqmuyECnlBaaJb+u1m9hHiXUEtwW4OzfUJg==}
@@ -5581,6 +5612,10 @@ packages:
       de-indent: 1.0.2
       he: 1.2.0
     dev: true
+
+  /vue-top-progress@0.7.0:
+    resolution: {integrity: sha512-pkZQuT3yxkRtB3QvrL2eF1h/F01JbJaI3eqdiM4CGZbsexLKJctYRolGHzK87c11moyx+aK8lwzeq8aPPoNOqA==}
+    dev: false
 
   /vue-tsc@1.8.27(typescript@5.3.3):
     resolution: {integrity: sha512-WesKCAZCRAbmmhuGl3+VrdWItEvfoFIPXOvUJkjULi+x+6G/Dy69yO3TBRJDr9eUlmsNAwVmxsNZxvHKzbkKdg==}

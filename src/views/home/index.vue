@@ -1,8 +1,6 @@
 <!--  -->
 <template>
-  <div>
-    <h1>顶级路由</h1>
-  </div>
+  <div>首页</div>
 </template>
 
 <script setup lang="ts"></script>

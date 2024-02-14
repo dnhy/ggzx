@@ -1,0 +1,33 @@
+.container {
+  background: url('@/assets/images/background.jpg') no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+}
+.tip-top {
+  width: 100%;
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 10px;
+}
+.tip-btm {
+  width: 100%;
+  font-size: 20px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.login-form {
+  width: 80%;
+  position: relative;
+  top: 300px;
+  left: 40px;
+  background: url('@/assets/images/login_form.png') no-repeat;
+  background-size: cover;
+  padding: 40px;
+}
+
+.btn-login {
+  width: 100%;
+}
