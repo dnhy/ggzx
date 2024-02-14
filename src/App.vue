@@ -10,8 +10,7 @@
     height: 2px !important;
   }
   .peg {
-    display: none!important;
+    display: none !important;
   }
 }
-
 </style>
