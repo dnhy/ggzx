@@ -3,6 +3,8 @@ import vue from '@vitejs/plugin-vue'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import path from 'path'
 import { viteMockServe } from 'vite-plugin-mock'
+import DefineOptions from 'unplugin-vue-define-options/vite'
+import vueSetupExtend from 'unplugin-vue-setup-extend-plus/vite'
 
 // https://vitejs.dev/config/
 // export default defineConfig({
@@ -34,6 +36,10 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
   return {
     plugins: [
       vue(),
+      DefineOptions(),
+      vueSetupExtend({
+        enableAutoExpose: true
+      }),
       viteMockServe({
         enable: command === 'serve',
       }),

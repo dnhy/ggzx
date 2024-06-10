@@ -42,7 +42,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import { User, Lock } from '@element-plus/icons-vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/store/modules/user'
 import type { loginResponseData, userResponseData, loginForm } from '@/api/type'
 import { ElNotification } from 'element-plus'
@@ -51,6 +51,8 @@ import { dateState } from '@/utils/date'
 const loginForm = reactive({ username: 'admin', password: '111111' })
 
 const router = useRouter()
+const $route = useRoute()
+
 const userStore = useUserStore()
 
 const isLoading = ref(false)
@@ -68,11 +70,15 @@ async function login() {
 
     ElNotification({
       title: `${timeQuantum}好！`,
-      message: '欢迎回来',
+      message: `欢迎回来`,
       type: 'success',
+      offset: 100,
     })
+
+    var redirect: any = $route.query.redirect
+
     router.push({
-      path: './home',
+      path: redirect || '/',
     })
   } catch (error) {
     console.error('error :', error)
@@ -82,6 +88,7 @@ async function login() {
       title: '登录失败！',
       message: (error as Error).message,
       type: 'warning',
+      offset: 100,
     })
   }
 }

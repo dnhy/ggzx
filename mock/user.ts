@@ -52,7 +52,7 @@ export default [
   // 获取用户信息
   {
     url: '/api/user/info',
-    method: 'get',
+    method: 'post',
     response: (request) => {
       //获取请求头携带token
       const token = request.headers.token

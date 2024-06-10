@@ -5,29 +5,9 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import '@/styles/index.scss'
 import router from './router'
-
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
+import './permission'
 import { createPinia } from 'pinia'
 
-NProgress.configure({
-  easing: 'ease',
-  speed: 500,
-  showSpinner: false,
-  trickleSpeed: 200,
-  minimum: 0.3,
-})
-
-//路由监听
-router.beforeEach((to, from, next) => {
-  NProgress.start()
-  next()
-})
-
-//路由跳转结束
-router.afterEach(() => {
-  NProgress.done()
-})
 //@ts-ignore
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 

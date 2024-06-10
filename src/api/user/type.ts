@@ -15,7 +15,7 @@ export interface loginResponseData {
 
 interface userInfo {
   userId: number
-  avatat: string
+  avatar: string
   username: string
   password: string
   desc: string
@@ -26,7 +26,7 @@ interface userInfo {
 }
 
 interface user {
-  checkuser: userInfo
+  checkUser: userInfo
 }
 
 //用户信息数据类型

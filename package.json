@@ -23,6 +23,7 @@
     "element-plus": "^2.5.5",
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
+    "unplugin-vue-setup-extend-plus": "^1.0.1",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5",
     "vue-top-progress": "^0.7.0"
@@ -56,6 +57,7 @@
     "stylelint-order": "^6.0.4",
     "stylelint-scss": "^6.1.0",
     "typescript": "^5.2.2",
+    "unplugin-vue-define-options": "^1.4.5",
     "vite": "^5.1.1",
     "vite-plugin-mock": "^3.0.1",
     "vite-plugin-svg-icons": "^2.0.1",

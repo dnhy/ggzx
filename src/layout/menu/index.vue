@@ -7,10 +7,10 @@
         v-if="!item.meta.hidden"
         @click="toRouter"
       >
+        <el-icon>
+          <component :is="item.meta.icon"></component>
+        </el-icon>
         <template #title>
-          <el-icon>
-            <component :is="item.meta.icon"></component>
-          </el-icon>
           <span>{{ item.meta.title }}</span>
         </template>
       </el-menu-item>
@@ -23,10 +23,10 @@
         v-if="!item.children[0].meta.hidden"
         @click="toRouter"
       >
+        <el-icon>
+          <component :is="item.children[0].meta.icon"></component>
+        </el-icon>
         <template #title>
-          <el-icon>
-            <component :is="item.children[0].meta.icon"></component>
-          </el-icon>
           <span>{{ item.children[0].meta.title }}</span>
         </template>
       </el-menu-item>
@@ -47,10 +47,9 @@
   </template>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="menu">
 import { defineProps } from 'vue'
 import { useRouter } from 'vue-router'
-
 let res = defineProps(['menuRoutes'])
 const router = useRouter()
 

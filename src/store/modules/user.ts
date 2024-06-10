@@ -1,6 +1,6 @@
 // 引入 defineStore 用于创建 store
 import { defineStore } from 'pinia'
-import { reqLogin } from '@/api/user'
+import { reqLogin, reqUserInfo } from '@/api/user'
 import type { loginResponseData, userResponseData, loginForm } from '@/api/type'
 import { constantRoute } from '@/router/routes'
 import type { Userstate } from './types/type'
@@ -19,12 +19,32 @@ export const useUserStore = defineStore('User', {
         return 'ok'
       }
     },
+    async getUserInfo() {
+      var res = await reqUserInfo()
+      if (res.code == 200) {
+        console.log('%c [ res ]-25', 'font-size:px;', res)
+        this.username = res.data.checkUser.username
+        this.avatar = res.data.checkUser.avatar
+        return 'ok'
+      } else {
+        //收集后端抛出的错误
+        return Promise.reject(new Error('Failed to get userInfo!'))
+      }
+    },
+    userLogout() {
+      this.username = ''
+      this.avatar = ''
+      this.token = ''
+      localStorage.removeItem('token')
+    },
   },
   // 状态
   state(): Userstate {
     return {
       token: localStorage.getItem('token'),
       menuRoutes: constantRoute,
+      username: '',
+      avatar: '',
     }
   },
   // 计算
