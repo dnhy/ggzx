@@ -43,8 +43,8 @@ function fullScreenChange() {
   }
 }
 
-function logout() {
-  userStore.userLogout()
+async function logout() {
+  await userStore.userLogout()
   $router.push({
     path: '/login',
     query: {

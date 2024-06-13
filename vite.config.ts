@@ -1,4 +1,4 @@
-import { ConfigEnv, UserConfigExport, defineConfig } from 'vite'
+import { ConfigEnv, UserConfigExport, defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import path from 'path'
@@ -32,13 +32,14 @@ import vueSetupExtend from 'unplugin-vue-setup-extend-plus/vite'
 //   },
 // })
 
-export default ({ command }: ConfigEnv): UserConfigExport => {
+export default ({ command, mode }: ConfigEnv): UserConfigExport => {
+  let env = loadEnv(mode, process.cwd())
   return {
     plugins: [
       vue(),
       DefineOptions(),
       vueSetupExtend({
-        enableAutoExpose: true
+        enableAutoExpose: true,
       }),
       viteMockServe({
         enable: command === 'serve',
@@ -60,6 +61,16 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
         scss: {
           javascriptEnabled: true,
           additionalData: '@import "./src/styles/variable.scss";',
+        },
+      },
+    },
+    //配置跨域服务器
+    server: {
+      proxy: {
+        [env.VITE_APP_BASE_API]: {
+          target: env.VITE_SERVE,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
         },
       },
     },

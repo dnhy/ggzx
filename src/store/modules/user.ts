@@ -1,9 +1,9 @@
 // 引入 defineStore 用于创建 store
 import { defineStore } from 'pinia'
-import { reqLogin, reqUserInfo } from '@/api/user'
-import type { loginResponseData, userResponseData, loginForm } from '@/api/type'
+import { reqLogOut, reqLogin, reqUserInfo } from '@/api/user'
 import { constantRoute } from '@/router/routes'
 import type { Userstate } from './types/type'
+import type { loginForm, loginResponseData, userInfoResponseData } from './type'
 
 // 定义并暴露一个 store
 export const useUserStore = defineStore('User', {
@@ -12,30 +12,37 @@ export const useUserStore = defineStore('User', {
     userLogin: async function (data: loginForm) {
       let res: loginResponseData = await reqLogin(data)
       if (res.code == '201') {
-        return Promise.reject(new Error(res.data.message))
+        return Promise.reject(new Error(res.message))
       } else if (res.code == '200') {
-        this.token = res.data.token
-        localStorage.setItem('token', res.data.token)
+        this.token = res.data
+        localStorage.setItem('token', res.data)
         return 'ok'
       }
     },
     async getUserInfo() {
-      var res = await reqUserInfo()
+      var res: userInfoResponseData = await reqUserInfo()
       if (res.code == 200) {
         console.log('%c [ res ]-25', 'font-size:px;', res)
-        this.username = res.data.checkUser.username
-        this.avatar = res.data.checkUser.avatar
+        this.username = res.data.name
+        this.avatar = res.data.avatar
         return 'ok'
       } else {
         //收集后端抛出的错误
-        return Promise.reject(new Error('Failed to get userInfo!'))
+        return Promise.reject(new Error(res.message))
       }
     },
-    userLogout() {
-      this.username = ''
-      this.avatar = ''
-      this.token = ''
-      localStorage.removeItem('token')
+    async userLogout() {
+      var res: any = await reqLogOut()
+      if (res.code == 200) {
+        this.username = ''
+        this.avatar = ''
+        this.token = ''
+        localStorage.removeItem('token')
+
+        return 'ok'
+      } else {
+        return Promise.reject(new Error(res.message))
+      }
     },
   },
   // 状态
