@@ -3,7 +3,11 @@ import { defineStore } from 'pinia'
 import { reqLogOut, reqLogin, reqUserInfo } from '@/api/user'
 import { constantRoute } from '@/router/routes'
 import type { Userstate } from './types/type'
-import type { loginForm, loginResponseData, userInfoResponseData } from './type'
+import type {
+  loginForm,
+  loginResponseData,
+  userInfoResponseData,
+} from '@/api/user/type'
 
 // 定义并暴露一个 store
 export const useUserStore = defineStore('User', {
@@ -11,9 +15,9 @@ export const useUserStore = defineStore('User', {
   actions: {
     userLogin: async function (data: loginForm) {
       let res: loginResponseData = await reqLogin(data)
-      if (res.code == '201') {
+      if (res.code == 201) {
         return Promise.reject(new Error(res.message))
-      } else if (res.code == '200') {
+      } else if (res.code == 200) {
         this.token = res.data
         localStorage.setItem('token', res.data)
         return 'ok'
@@ -22,7 +26,6 @@ export const useUserStore = defineStore('User', {
     async getUserInfo() {
       var res: userInfoResponseData = await reqUserInfo()
       if (res.code == 200) {
-        console.log('%c [ res ]-25', 'font-size:px;', res)
         this.username = res.data.name
         this.avatar = res.data.avatar
         return 'ok'
