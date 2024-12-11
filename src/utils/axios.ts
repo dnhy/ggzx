@@ -62,7 +62,7 @@ class HttpRequest {
           default:
             msg = '无网络'
         }
-        
+
         return Promise.reject(error)
       },
     )
