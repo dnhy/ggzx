@@ -40,11 +40,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { User, Lock } from '@element-plus/icons-vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/store/modules/user'
-import type { loginResponseData, userResponseData, loginForm } from '@/api/type'
+// import type { loginForm } from '@/api/user/type'
 import { ElNotification } from 'element-plus'
 import { dateState } from '@/utils/date'
 

@@ -2,7 +2,17 @@
 <template>
   <el-button icon="Refresh" circle @click="refreshMain" />
   <el-button icon="FullScreen" circle @click="fullScreenChange" />
-  <el-button icon="Setting" circle />
+  <el-popover
+    placement="bottom"
+    title="Title"
+    :width="200"
+    trigger="click"
+    content="this is content, this is content, this is content"
+  >
+    <template #reference>
+      <el-button icon="Setting" circle />
+    </template>
+  </el-popover>
   <img class="avatar" :src="userStore.avatar" alt="" />
   <el-dropdown>
     <span class="el-dropdown-link">

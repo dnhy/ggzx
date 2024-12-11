@@ -4,16 +4,11 @@ export interface loginForm {
   password: string
 }
 
-interface datatype {
-  token: string
-}
-
 export interface ResponseData {
   code: number
   message: string
   ok: boolean
 }
-
 
 export interface loginResponseData extends ResponseData {
   data: string
@@ -28,7 +23,6 @@ export interface userInfoResponseData extends ResponseData {
     avatar: string
   }
 }
-
 
 interface userInfo {
   userId: number

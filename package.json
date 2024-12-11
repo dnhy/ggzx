@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --open",
+    "dev": "vite --open  --mode production",
     "build:test": "vue-tsc && vite build --mode test",
     "build:pro": "vue-tsc && vite build --mode production",
     "preview": "vite preview",
@@ -62,5 +62,12 @@
     "vite-plugin-mock": "^3.0.1",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "^1.8.27"
+  },
+  "lint-staged2": {},
+  "json-comments": {
+    "tips": "请安装JSONComments插件为JSON文件提供注释功能, 详见: https://github.com/zhangfisher/json_comments_extension",
+    "package.json": {
+      "scripts.dev": "    \"dev\": \"NODE_ENV=production vite --open --mode production\","
+    }
   }
 }

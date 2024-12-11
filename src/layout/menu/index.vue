@@ -1,5 +1,5 @@
 <template>
-  <template v-for="(item, index) in menuRoutes" :key="item.path">
+  <template v-for="item in menuRoutes" :key="item.path">
     <!-- 没有子路由 -->
     <template v-if="!item.children">
       <el-menu-item
@@ -49,13 +49,14 @@
 
 <script setup lang="ts" name="menu">
 import { defineProps } from 'vue'
-import { useRouter } from 'vue-router'
+import { RouteLocationRaw, useRouter } from 'vue-router'
+
 let res = defineProps(['menuRoutes'])
 const router = useRouter()
 
 let menuRoutes = res.menuRoutes
 
-function toRouter(vc) {
+function toRouter(vc: { index: RouteLocationRaw }) {
   console.log(vc.index)
   router.push(vc.index)
 }

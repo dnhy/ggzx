@@ -1,9 +1,5 @@
 import request from '@/utils/request'
-import type {
-  loginForm,
-  loginResponseData,
-  userInfoResponseData,
-} from './type'
+import type { loginForm, loginResponseData, userInfoResponseData } from './type'
 
 enum API {
   LOGIN_URL = '/admin/acl/index/login',
@@ -17,5 +13,4 @@ export const reqLogin = (data: loginForm) =>
 export const reqUserInfo = () =>
   request.get<any, userInfoResponseData>(API.USERINFO_URL)
 
-export const reqLogOut = () =>
-  request.post<any, any>(API.LOGOUT_URL)
+export const reqLogOut = () => request.post<any, any>(API.LOGOUT_URL)

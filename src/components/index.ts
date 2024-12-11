@@ -1,7 +1,7 @@
 //使用插件注册全局组件
 import SvgIcon from './SvgIcon/index.vue'
-import { App, Component } from 'vue'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import { App, Component } from 'vue'
 
 const components: { [name: string]: Component } = { SvgIcon }
 

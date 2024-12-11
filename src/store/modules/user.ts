@@ -1,6 +1,6 @@
 // 引入 defineStore 用于创建 store
 import { defineStore } from 'pinia'
-import { reqLogOut, reqLogin, reqUserInfo } from '@/api/user'
+import { reqLogin, reqLogOut, reqUserInfo } from '@/api/user'
 import { constantRoute } from '@/router/routes'
 import type { Userstate } from './types/type'
 import type {
@@ -14,7 +14,7 @@ export const useUserStore = defineStore('User', {
   // 动作
   actions: {
     userLogin: async function (data: loginForm) {
-      let res: loginResponseData = await reqLogin(data)
+      const res: loginResponseData = await reqLogin(data)
       if (res.code == 201) {
         return Promise.reject(new Error(res.message))
       } else if (res.code == 200) {
