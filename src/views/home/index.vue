@@ -17,13 +17,13 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from '@/store/modules/user'
-import { dateState } from '@/utils/date'
+import { useUserStore } from '@/store/modules/user';
+import { dateState } from '@/utils/date';
 
-const userStore = useUserStore()
+const userStore = useUserStore();
 
-const avatar = userStore.avatar
-const username = userStore.username
+const avatar = userStore.avatar;
+const username = userStore.username;
 </script>
 
 <style lang="scss" scoped>

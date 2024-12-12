@@ -3,9 +3,9 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  globals:{
-    module:readonly
-  }
+  globals: {
+    module: readonly,
+  },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',

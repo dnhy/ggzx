@@ -40,56 +40,56 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import { User, Lock } from '@element-plus/icons-vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useUserStore } from '@/store/modules/user'
+import { reactive, ref } from 'vue';
+import { User, Lock } from '@element-plus/icons-vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useUserStore } from '@/store/modules/user';
 // import type { loginForm } from '@/api/user/type'
-import { ElNotification } from 'element-plus'
-import { dateState } from '@/utils/date'
+import { ElNotification } from 'element-plus';
+import { dateState } from '@/utils/date';
 
-const loginForm = reactive({ username: 'admin', password: '111111' })
+const loginForm = reactive({ username: 'admin', password: '111111' });
 
-const router = useRouter()
-const $route = useRoute()
+const router = useRouter();
+const $route = useRoute();
 
-const userStore = useUserStore()
+const userStore = useUserStore();
 
-const isLoading = ref(false)
+const isLoading = ref(false);
 
-const loginForms = ref()
+const loginForms = ref();
 
 async function login() {
-  await loginForms.value.validate()
+  await loginForms.value.validate();
 
-  isLoading.value = true
+  isLoading.value = true;
   try {
-    await userStore.userLogin(loginForm)
-    let timeQuantum = dateState()
-    isLoading.value = false
+    await userStore.userLogin(loginForm);
+    let timeQuantum = dateState();
+    isLoading.value = false;
 
     ElNotification({
       title: `${timeQuantum}好！`,
       message: `欢迎回来`,
       type: 'success',
       offset: 100,
-    })
+    });
 
-    var redirect: any = $route.query.redirect
+    var redirect: any = $route.query.redirect;
 
     router.push({
       path: redirect || '/',
-    })
+    });
   } catch (error) {
-    console.error('error :', error)
-    isLoading.value = false
+    console.error('error :', error);
+    isLoading.value = false;
 
     ElNotification({
       title: '登录失败！',
       message: (error as Error).message,
       type: 'warning',
       offset: 100,
-    })
+    });
   }
 }
 
@@ -100,19 +100,19 @@ const validatorUserName = (rule: any, value: any, callback: any) => {
   //函数:如果符合条件callBack放行通过即为
   //如果不符合条件callBack方法,注入错误提示信息
   if (value.length >= 5) {
-    callback()
+    callback();
   } else {
-    callback(new Error('账号长度至少五位'))
+    callback(new Error('账号长度至少五位'));
   }
-}
+};
 
 const validatorPassword = (rule: any, value: any, callback: any) => {
   if (value.length >= 6) {
-    callback()
+    callback();
   } else {
-    callback(new Error('密码长度至少六位'))
+    callback(new Error('密码长度至少六位'));
   }
-}
+};
 //定义表单校验需要配置对象
 const rules = {
   //规则对象属性:
@@ -129,7 +129,7 @@ const rules = {
     // { required: true, min: 6, max: 15, message: '密码长度至少6位', trigger: 'change' }
     { trigger: 'change', validator: validatorPassword },
   ],
-}
+};
 </script>
 
 <style lang="scss" scoped>

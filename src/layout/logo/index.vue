@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts">
-const { setting } = defineProps(['setting'])
-const { logo, title } = setting
+const { setting } = defineProps(['setting']);
+const { logo, title } = setting;
 </script>
 
 <style lang="scss" scoped>

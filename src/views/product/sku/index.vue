@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div>SKU管理</div>
+  <div></div>
 </template>
 
 <script setup lang="ts"></script>

@@ -1,6 +1,8 @@
 <!--  -->
 <template>
-  <div>SPU管理</div>
+  <div>
+    <Category />
+  </div>
 </template>
 
 <script setup lang="ts"></script>

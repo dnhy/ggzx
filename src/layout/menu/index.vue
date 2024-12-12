@@ -48,23 +48,23 @@
 </template>
 
 <script setup lang="ts" name="menu">
-import { defineProps } from 'vue'
-import { RouteLocationRaw, useRouter } from 'vue-router'
+import { defineProps } from 'vue';
+import { RouteLocationRaw, useRouter } from 'vue-router';
 
-let res = defineProps(['menuRoutes'])
-const router = useRouter()
+let res = defineProps(['menuRoutes']);
+const router = useRouter();
 
-let menuRoutes = res.menuRoutes
+let menuRoutes = res.menuRoutes;
 
 function toRouter(vc: { index: RouteLocationRaw }) {
-  console.log(vc.index)
-  router.push(vc.index)
+  console.log(vc.index);
+  router.push(vc.index);
 }
 </script>
 <script lang="ts">
 export default {
   name: 'Menu',
-}
+};
 </script>
 
 <style lang="scss" scoped></style>

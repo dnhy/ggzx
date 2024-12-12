@@ -18,17 +18,17 @@
 </template>
 
 <script setup lang="ts" name="breadcrumb">
-import useLayOutSettingStore from '@/store/modules/setting'
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
-var layOutSettingStore = useLayOutSettingStore()
+import useLayOutSettingStore from '@/store/modules/setting';
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+var layOutSettingStore = useLayOutSettingStore();
 
 function clickFold() {
-  layOutSettingStore.fold = !layOutSettingStore.fold
+  layOutSettingStore.fold = !layOutSettingStore.fold;
 }
 
-var $route = useRoute()
-console.log('%c [ $route  ]-24', 'font-size:px;', $route)
+var $route = useRoute();
+console.log('%c [ $route  ]-24', 'font-size:px;', $route);
 </script>
 
 <style lang="scss" scoped></style>

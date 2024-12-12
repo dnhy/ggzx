@@ -87,42 +87,42 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, reactive, ref } from 'vue'
-import { reqHasTradeMark } from '@/api/product/trademark'
-import { ElMessage } from 'element-plus'
+import { computed, nextTick, onMounted, reactive, ref } from 'vue';
+import { reqHasTradeMark } from '@/api/product/trademark';
+import { ElMessage } from 'element-plus';
 
 import type {
   Records,
   TradeMark,
   TradeMarkResponseData,
-} from '@/api/product/trademark/type'
-import type { UploadProps } from 'element-plus'
+} from '@/api/product/trademark/type';
+import type { UploadProps } from 'element-plus';
 import {
   reqAddTradeMark,
   reqEditTradeMark,
   reqDeleteTradeMark,
-} from '@/api/product/trademark'
+} from '@/api/product/trademark';
 
-const currentPage = ref<number>(1)
-const pageSize = ref<number>(3)
-const total = ref<number>(400)
-const tradeArray = ref<Records>([])
-const dialogFormVisible = ref<boolean>(false)
-const tradeParams = reactive<TradeMark>({ tmName: '', logoUrl: '' })
+const currentPage = ref<number>(1);
+const pageSize = ref<number>(3);
+const total = ref<number>(400);
+const tradeArray = ref<Records>([]);
+const dialogFormVisible = ref<boolean>(false);
+const tradeParams = reactive<TradeMark>({ tmName: '', logoUrl: '' });
 const title = computed(() => {
-  return tradeParams.id ? '修改品牌' : '添加品牌'
-})
-const tradeFormRef = ref()
+  return tradeParams.id ? '修改品牌' : '添加品牌';
+});
+const tradeFormRef = ref();
 
 const tmNameValidate = (rule: any, value: any, callback: any) => {
   value.length >= 2
     ? callback()
-    : callback(new Error('品牌名称位数大于等于两位'))
-}
+    : callback(new Error('品牌名称位数大于等于两位'));
+};
 
 const logoUrlValidate = (rule: any, value: any, callback: any) => {
-  value != '' ? callback() : callback(new Error('LOGO图片务必上传'))
-}
+  value != '' ? callback() : callback(new Error('LOGO图片务必上传'));
+};
 
 const rules = {
   tmName: [
@@ -133,128 +133,128 @@ const rules = {
     },
   ],
   logoUrl: [{ required: true, validator: logoUrlValidate }],
-}
+};
 
 const getHasTradeMark = async (page = 1) => {
-  currentPage.value = page
+  currentPage.value = page;
   let result: TradeMarkResponseData = await reqHasTradeMark(
     currentPage.value,
     pageSize.value,
-  )
+  );
   if (result.code == 200) {
-    tradeArray.value = result.data.records
-    total.value = result.data.total
+    tradeArray.value = result.data.records;
+    total.value = result.data.total;
   }
-}
+};
 
 onMounted(() => {
-  getHasTradeMark()
-})
+  getHasTradeMark();
+});
 
 function sizeChangeRefresh() {
-  getHasTradeMark()
+  getHasTradeMark();
 }
 
 function addTradeMark() {
-  dialogFormVisible.value = true
-  tradeParams.id = undefined
-  tradeParams.logoUrl = ''
-  tradeParams.tmName = ''
+  dialogFormVisible.value = true;
+  tradeParams.id = undefined;
+  tradeParams.logoUrl = '';
+  tradeParams.tmName = '';
 
-  clearValidate()
+  clearValidate();
 }
 
 function clearValidate() {
   nextTick(() => {
-    tradeFormRef.value.clearValidate('logoUrl')
-    tradeFormRef.value.clearValidate('tmName')
-  })
+    tradeFormRef.value.clearValidate('logoUrl');
+    tradeFormRef.value.clearValidate('tmName');
+  });
 }
 function editTradeMark(row: TradeMark) {
-  dialogFormVisible.value = true
+  dialogFormVisible.value = true;
   // tradeParams.id = row.id
   // tradeParams.logoUrl = row.logoUrl
   // tradeParams.tmName = row.tmName
-  Object.assign(tradeParams, row)
+  Object.assign(tradeParams, row);
 
-  clearValidate()
+  clearValidate();
 }
 async function confirmTradeMark() {
   try {
-    await tradeFormRef.value.validate()
+    await tradeFormRef.value.validate();
   } catch (error) {
-    return
+    return;
   }
 
-  dialogFormVisible.value = false
+  dialogFormVisible.value = false;
   let result: any = tradeParams.id
     ? await reqEditTradeMark(tradeParams)
-    : await reqAddTradeMark(tradeParams)
+    : await reqAddTradeMark(tradeParams);
   if (result.code == 200) {
     ElMessage({
       type: 'success',
       message: tradeParams.id ? '修改品牌成功' : '添加品牌成功',
-    })
-    dialogFormVisible.value = false
+    });
+    dialogFormVisible.value = false;
 
     var curr = tradeParams.id
       ? currentPage.value
       : tradeArray.value.length + 1 > pageSize.value
         ? currentPage.value + 1
-        : currentPage.value
+        : currentPage.value;
 
-    getHasTradeMark(curr)
+    getHasTradeMark(curr);
   } else {
     //添加品牌失败
     ElMessage({
       type: 'error',
       message: tradeParams.id ? '修改品牌失败' : '添加品牌失败',
-    })
+    });
     //关闭对话框
-    dialogFormVisible.value = false
+    dialogFormVisible.value = false;
   }
 }
 
 function cancel() {
-  dialogFormVisible.value = false
+  dialogFormVisible.value = false;
 }
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   if (rawFile.type.indexOf('image') == -1) {
-    ElMessage.error('请上传图片类型的文件')
-    return false
+    ElMessage.error('请上传图片类型的文件');
+    return false;
   } else if (rawFile.size / 1024 / 1024 > 2) {
-    ElMessage.error('请上传2M以内大小的图片')
+    ElMessage.error('请上传2M以内大小的图片');
 
-    return false
+    return false;
   }
-  return true
-}
+  return true;
+};
 
 const handleAvatarSuccess: UploadProps['onSuccess'] = (
   response,
   uploadFile,
 ) => {
-  tradeParams.logoUrl = response.data
-  tradeFormRef.value.clearValidate('logoUrl')
-}
+  tradeParams.logoUrl = response.data;
+  tradeFormRef.value.clearValidate('logoUrl');
+};
 
 async function deleteTradeMark(id: number) {
-  let res: any = await reqDeleteTradeMark(id)
+  let res: any = await reqDeleteTradeMark(id);
   if (res.code == 200) {
     ElMessage({
       type: 'success',
       message: '删除品牌成功',
-    })
+    });
 
     getHasTradeMark(
       tradeArray.value.length > 1 ? currentPage.value : currentPage.value - 1,
-    )
+    );
   } else {
     ElMessage({
       type: 'error',
       message: '删除品牌失败',
-    })
+    });
   }
 }
 </script>

@@ -11,8 +11,8 @@
 </template>
 
 <script setup lang="ts" name="tabbar">
-import Breadcrumb from './breadcrumb/index.vue'
-import Setting from './setting/index.vue'
+import Breadcrumb from './breadcrumb/index.vue';
+import Setting from './setting/index.vue';
 </script>
 
 <style lang="scss" scoped>

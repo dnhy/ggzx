@@ -1,59 +1,56 @@
 <template>
   <div class="container">
-    <el-row style="height: 100%">
-      <el-col :span="spanWidth" class="left-bar animation">
-        <Logo :setting="setting"></Logo>
-        <div class="menu">
-          <el-scrollbar class="scrollbar">
-            <el-menu
-              active-text-color="#ffd04b"
-              background-color="#545c64"
-              class="el-menu-vertical-demo"
-              :default-active="$route.path"
-              text-color="#fff"
-              :collapse="fold"
-              :collapse-transition="false"
-            >
-              <Menu :menuRoutes="menuRoutes"></Menu>
-            </el-menu>
-          </el-scrollbar>
-        </div>
-      </el-col>
-      <el-col :span="24 - spanWidth" class="animation">
-        <div class="main">
+    <el-container style="height: 100%">
+      <el-aside
+        width="220px"
+        class="left-bar animation"
+        :class="{ collapse: fold }"
+      >
+        <el-scrollbar class="scrollbar">
+          <el-menu
+            active-text-color="#ffd04b"
+            background-color="#545c64"
+            class="el-menu-vertical-demo"
+            :default-active="$route.path"
+            text-color="#fff"
+            :collapse="fold"
+            :collapse-transition="false"
+          >
+            <Logo :setting="setting"></Logo>
+            <Menu :menuRoutes="menuRoutes"></Menu>
+          </el-menu>
+        </el-scrollbar>
+      </el-aside>
+      <el-container class="animation">
+        <el-header>
           <Tabbar></Tabbar>
-          <Main></Main>
-          <!-- 子路由会在这个子的router-view中显示，一级路由在外层的router-view中显示。子路由和一级路由相同以谁后写为准，如果非得同时写，写在前面的路由名要和最后一个相同 -->
-          <!-- <router-view></router-view> -->
-        </div>
-      </el-col>
-    </el-row>
+        </el-header>
+        <el-main><Main></Main></el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script setup lang="ts" name="layout">
-import Menu from './menu/index.vue'
-import { useUserStore } from '@/store/modules/user'
-import Main from '@/layout/main/index.vue'
-import Tabbar from './tabbar/index.vue'
-import Logo from '@/layout/logo/index.vue'
-import { useRoute } from 'vue-router'
-import useLayOutSettingStore from '@/store/modules/setting'
-import { computed } from 'vue'
-import setting from '../setting'
+import Menu from './menu/index.vue';
+import { useUserStore } from '@/store/modules/user';
+import Main from '@/layout/main/index.vue';
+import Tabbar from './tabbar/index.vue';
+import Logo from '@/layout/logo/index.vue';
+import { useRoute } from 'vue-router';
+import useLayOutSettingStore from '@/store/modules/setting';
+import { computed } from 'vue';
+import setting from '../setting';
 
-const userStore = useUserStore()
-const menuRoutes = userStore.menuRoutes
+const userStore = useUserStore();
+const menuRoutes = userStore.menuRoutes;
 
-let $route = useRoute()
+let $route = useRoute();
 
-var layOutSettingStore = useLayOutSettingStore()
+var layOutSettingStore = useLayOutSettingStore();
 var fold = computed(() => {
-  return layOutSettingStore.fold
-})
-var spanWidth = computed(() => {
-  return layOutSettingStore.fold ? 1 : 3
-})
+  return layOutSettingStore.fold;
+});
 </script>
 
 <style lang="scss" scoped>
@@ -83,8 +80,7 @@ var spanWidth = computed(() => {
   border-right: none;
 }
 
-.el-col-1 {
+.collapse {
   width: 60px;
-  flex: 0;
 }
 </style>

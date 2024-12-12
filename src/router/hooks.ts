@@ -1,9 +1,9 @@
-import { useRequestStore } from '@/store/modules/request'
+import { useRequestStore } from '@/store/modules/request';
 
-const requestStore = useRequestStore()
+const requestStore = useRequestStore();
 
 export default {
   clear_token: () => {
-    requestStore.clearRequest()
+    requestStore.clearRequest();
   },
-}
+};
