@@ -20,7 +20,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "axios": "^1.6.7",
-    "element-plus": "^2.5.5",
+    "element-plus": "^2.8.8",
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
     "unplugin-vue-setup-extend-plus": "^1.0.1",

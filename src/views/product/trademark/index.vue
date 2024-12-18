@@ -1,13 +1,18 @@
 <!--  -->
 <template>
   <div>
-    <el-card style="margin: 10px">
+    <el-card style="margin: 10px 0">
       <el-button type="primary" icon="plus" @click="addTradeMark">
         添加品牌
       </el-button>
 
       <el-table border style="width: 100%; margin: 10px" :data="tradeArray">
-        <el-table-column label="序号" align="center" type="index" />
+        <el-table-column
+          label="序号"
+          align="center"
+          type="index"
+          min-width="12"
+        />
         <el-table-column prop="tmName" label="品牌名称" />
         <el-table-column label="品牌logo">
           <template #="{ row, column, $index }">

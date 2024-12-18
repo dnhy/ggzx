@@ -1,12 +1,13 @@
 <template>
   <!--  <svg-icon name="more" color="red" width="200px" height="200px"></svg-icon> -->
-  <el-card>
+  <el-card style="margin: 10px 0">
     <el-form :inline="true">
       <el-form-item label="一级分类">
         <el-select
           v-model="categoryStore.c1Id"
           placeholder="Select"
           style="width: 240px"
+          :disabled="sence !== 0"
           @change="handleSelectOne"
         >
           <el-option
@@ -22,6 +23,7 @@
           v-model="categoryStore.c2Id"
           placeholder="Select"
           style="width: 240px"
+          :disabled="sence !== 0"
           @change="handleSelectTwo"
         >
           <el-option
@@ -36,6 +38,7 @@
         <el-select
           v-model="categoryStore.c3Id"
           placeholder="Select"
+          :disabled="sence !== 0"
           style="width: 240px"
         >
           <el-option
@@ -51,9 +54,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, toRefs } from 'vue';
 import useCategoryStore from '@/store/modules/category';
 
+const props = defineProps(['sence']);
+const { sence } = toRefs(props);
 const categoryStore = useCategoryStore();
 onMounted(async () => {
   categoryStore.c1Id = '';
