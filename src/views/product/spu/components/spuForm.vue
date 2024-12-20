@@ -44,14 +44,18 @@
     <el-form-item label="SPU销售属性">
       <el-select
         v-model="saleAttrIdAndValueName"
-        placeholder="还未选择个"
+        :placeholder="
+          unSelectSaleAttr.length
+            ? `还未选择${unSelectSaleAttr.length}个`
+            : '暂无数据可选择'
+        "
         class="m-2"
         style="width: 180px"
       >
         <el-option
           :label="item.name"
           :value="item.id + ':' + item.name"
-          v-for="(item, index) in allSaleAttr"
+          v-for="(item, index) in unSelectSaleAttr"
         />
       </el-select>
       <el-button
@@ -117,7 +121,14 @@
       </el-table>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" size="default" @click="save">保存</el-button>
+      <el-button
+        type="primary"
+        size="default"
+        @click="save"
+        :disabled="isSaveDisabled"
+      >
+        保存
+      </el-button>
       <el-button size="default" @click="cancel">取消</el-button>
     </el-form-item>
   </el-form>
@@ -143,14 +154,13 @@ import type {
   HasSaleAttr,
   SaleAttrValue,
 } from '@/api/product/spu/type';
-import { ref, nextTick, onMounted } from 'vue';
+import { ref, nextTick, onMounted, computed } from 'vue';
 import { ElMessage } from 'element-plus';
 
 const $emit = defineEmits(['changeScene']);
 
 let allTradeMark = ref<Trademark[]>([]);
 let allSaleAttr = ref<HasSaleAttr[]>([]);
-let saleAttr = ref<SaleAttr[]>([]);
 let SpuParams = ref<SpuData>({
   category3Id: '',
   spuName: '',
@@ -160,10 +170,27 @@ let SpuParams = ref<SpuData>({
   spuSaleAttrList: [],
 });
 let saleAttrIdAndValueName = ref<string>('');
+
+// 组件绑定数据
 let imgList = ref<SpuImg[]>([]);
+let saleAttr = ref<SaleAttr[]>([]);
+
 let dialogVisible = ref<boolean>(false);
 let dialogImageUrl = ref<string>('');
 let inputArr = ref<any>([]);
+
+let unSelectSaleAttr = computed(() => {
+  let unSelectArr = allSaleAttr.value.filter((item) => {
+    return saleAttr.value.every((item1) => {
+      return item.name !== item1.saleAttrName;
+    });
+  });
+  return unSelectArr;
+});
+
+let isSaveDisabled = computed(() => {
+  return SpuParams.value.spuName === '' || saleAttr.value.length === 0;
+});
 
 const handlePictureCardPreview = (file: any) => {
   dialogImageUrl.value = file.url;
@@ -215,7 +242,7 @@ function clearData() {
 async function save() {
   SpuParams.value.spuImageList = imgList.value.map((e) => ({
     imgName: e.name,
-    imgUrl: e.url,
+    imgUrl: (e.response && e.response.data) || e.url,
   }));
   SpuParams.value.spuSaleAttrList = saleAttr.value;
   let res = await reqAddOrUpdateSpu(SpuParams.value);
@@ -224,12 +251,18 @@ async function save() {
       type: 'success',
       message: SpuParams.value.id ? '更新成功' : '添加成功',
     });
+    $emit('changeScene', {
+      flag: 0,
+      params: SpuParams.value.id ? 'update' : 'add',
+    });
   } else {
     ElMessage({
       type: 'error',
       message: SpuParams.value.id ? '更新失败' : '添加失败',
     });
   }
+
+  clearData();
 }
 
 function cancel() {
@@ -291,6 +324,7 @@ async function initAddSpuData(c3Id: number | string) {
     tmId: '',
     spuImageList: [],
     spuSaleAttrList: [],
+    id: '',
   });
   saleAttr.value = [];
   saleAttrIdAndValueName.value = '';
@@ -302,7 +336,7 @@ async function initAddSpuData(c3Id: number | string) {
 }
 
 async function initEidtSpuData(spuData: SpuData) {
-  SpuParams.value = spuData;
+  SpuParams.value = JSON.parse(JSON.stringify(spuData));
 
   //获取全部品牌的数据
   let result: AllTradeMark = await reqAllTradeMark();

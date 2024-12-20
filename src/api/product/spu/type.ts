@@ -17,8 +17,8 @@ export interface SpuData {
   description: string;
   category3Id: string | number;
   tmId: number | string;
-  spuSaleAttrList: null | SaleAttr[];
-  spuImageList: null | SpuImg[];
+  spuSaleAttrList?: SaleAttr[];
+  spuImageList?: SpuImg[];
 }
 
 export type Records = SpuData[];
@@ -53,6 +53,7 @@ export interface SpuImg {
   imgUrl?: string;
   name?: string;
   url?: string;
+  response?: any;
 }
 
 export interface SpuHasImg extends ResponseData {

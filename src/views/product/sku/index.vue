@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <el-card>
-    <el-table style="width: 100%" :data="skuArray">
+    <el-table border style="width: 100%; margin-bottom: 10px" :data="skuArray">
       <el-table-column
         label="序号"
         type="index"

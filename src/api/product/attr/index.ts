@@ -23,7 +23,7 @@ export const reqC3 = (category2Id: TID) =>
 
 export const reqAttr = (category1Id: TID, category2Id: TID, category3Id: TID) =>
   request.get<any, AttrResponseData>(
-    API.ATTR_URL + `${category1Id}/${category2Id}/${category3Id}/`,
+    API.ATTR_URL + `${category1Id}/${category2Id}/${category3Id}`,
   );
 
 export const reqAddOrUpdateAttr = (data: Attr) =>

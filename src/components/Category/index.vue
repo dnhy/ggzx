@@ -1,7 +1,7 @@
 <template>
   <!--  <svg-icon name="more" color="red" width="200px" height="200px"></svg-icon> -->
   <el-card style="margin: 10px 0">
-    <el-form :inline="true">
+    <el-form inline>
       <el-form-item label="一级分类">
         <el-select
           v-model="categoryStore.c1Id"
@@ -54,16 +54,15 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, toRefs } from 'vue';
+import { onBeforeUnmount, onMounted, toRefs } from 'vue';
 import useCategoryStore from '@/store/modules/category';
 
-const props = defineProps(['sence']);
+const props = defineProps({
+  sence: { type: Number, default: 0 },
+});
 const { sence } = toRefs(props);
 const categoryStore = useCategoryStore();
 onMounted(async () => {
-  categoryStore.c1Id = '';
-  categoryStore.c2Id = '';
-  categoryStore.c3Id = '';
   await categoryStore.getC1();
   categoryStore.c1Id = categoryStore.c1Arr[0].id;
   await categoryStore.getC2();
@@ -82,6 +81,10 @@ function handleSelectTwo() {
   categoryStore.c3Id = '';
   categoryStore.getC3();
 }
+
+onBeforeUnmount(() => {
+  categoryStore.$reset();
+});
 </script>
 
 <style lang="scss" scoped></style>
