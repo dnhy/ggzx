@@ -1,11 +1,12 @@
 import request from '@/utils/request';
-import type { HasSkuResponseData, SkuInfoData } from './type';
+import type { HasSkuResponseData, SkuInfoData, SkuResponseData } from './type';
 enum API {
   HASSKU_URL = '/admin/product/list/',
   ONSALE_URL = 'admin/product/onSale/',
   CANCEL_URL = 'admin/product/cancelSale/',
   DELETESKU_URL = '/admin/product/deleteSku/',
   GETSKUINFO_URL = 'admin/product/getSkuInfo/',
+  SKU_URL = '/admin/product/list/',
 }
 
 export const reqHasSku = (page: number, limit: number) =>
@@ -22,3 +23,7 @@ export const reqRemoveSku = (skuId: number) =>
 
 export const reqSkuInfo = (skuId: number) =>
   request.get<any, SkuInfoData>(API.GETSKUINFO_URL + `${skuId}`);
+
+//获取商品SKU的接口
+export const reqSkuList = (page: number, limit: number) =>
+  request.get<any, SkuResponseData>(API.SKU_URL + `${page}/${limit}`);

@@ -53,3 +53,25 @@ export interface HasSkuResponseData extends ResponseData {
 export interface SkuInfoData extends ResponseData {
   data: SkuData;
 }
+
+//获取SKU接口返回的数据ts类型
+export interface SkuResponseData extends ResponseData {
+  data: {
+    records: SkuData[];
+    total: number;
+    size: number;
+    current: number;
+    orders: [];
+    optimizeCountSql: boolean;
+    hitCount: boolean;
+    countId: null;
+    maxLimit: null;
+    searchCount: boolean;
+    pages: number;
+  };
+}
+
+//获取SKU商品详情接口的ts类型
+export interface SkuInfoData extends ResponseData {
+  data: SkuData;
+}

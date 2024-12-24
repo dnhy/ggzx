@@ -17,6 +17,9 @@ importers:
       element-plus:
         specifier: ^2.8.8
         version: 2.8.8(vue@3.4.18(typescript@5.3.3))
+      moment:
+        specifier: ^2.29.4
+        version: 2.29.4
       nprogress:
         specifier: ^0.2.0
         version: 0.2.0
@@ -2302,6 +2305,9 @@ packages:
   mockjs@1.1.0:
     resolution: {integrity: sha512-eQsKcWzIaZzEZ07NuEyO4Nw65g0hdWAyurVol1IPl1gahRwY+svqzfgfey8U8dahLwG44d6/RwEzuK52rSa/JQ==}
     hasBin: true
+
+  moment@2.29.4:
+    resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
 
   ms@2.0.0:
     resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}
@@ -5672,6 +5678,8 @@ snapshots:
   mockjs@1.1.0:
     dependencies:
       commander: 7.2.0
+
+  moment@2.29.4: {}
 
   ms@2.0.0: {}
 

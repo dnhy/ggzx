@@ -24,10 +24,22 @@
           <el-table-column prop="date" label="SPU操作">
             <template #="{ row, column, $index }">
               <el-button
+                type="primary"
+                icon="plus"
+                size="small"
+                @click="addSku(row)"
+              ></el-button>
+              <el-button
                 type="warning"
                 size="small"
                 icon="edit"
                 @click="editSpu(row)"
+              ></el-button>
+              <el-button
+                type="info"
+                icon="InfoFilled"
+                size="small"
+                @click="findSku(row)"
               ></el-button>
 
               <el-popconfirm
@@ -63,17 +75,42 @@
       <div v-show="sence === 1">
         <spuForm ref="spuFormRef" @changeScene="changeScene" />
       </div>
-      <div v-show="sence === 2"></div>
+      <div v-show="sence === 2">
+        <skuForm ref="skuFormRef" @changeScene="changeScene" />
+      </div>
+      <!-- dialog对话框:展示已有的SKU数据 -->
+      <el-dialog v-model="show" title="SKU列表">
+        <el-table border :data="skuArr">
+          <el-table-column label="SKU名字" prop="skuName"></el-table-column>
+          <el-table-column label="SKU价格" prop="price"></el-table-column>
+          <el-table-column label="SKU重量" prop="weight"></el-table-column>
+          <el-table-column label="SKU图片">
+            <template #="{ row, $index }">
+              <img
+                :src="row.skuDefaultImg"
+                style="width: 100px; height: 100px"
+              />
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-dialog>
     </el-card>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { reqHasSpu, reqRemoveSpu } from '@/api/product/spu';
+import { reqHasSpu, reqRemoveSpu, reqSkuList } from '@/api/product/spu';
 import spuForm from './components/spuForm.vue';
+import skuForm from './components/skuForm.vue';
 import useCategoryStore from '@/store/modules/category';
-import { HasSpuResponseData, Records, SpuData } from '@/api/product/spu/type';
+import {
+  HasSpuResponseData,
+  Records,
+  SkuData,
+  SkuInfoData,
+  SpuData,
+} from '@/api/product/spu/type';
 import { ElMessage } from 'element-plus';
 let categoryStore = useCategoryStore();
 
@@ -83,7 +120,10 @@ const pageSize = ref<number>(9);
 const total = ref<number>(400);
 const sence = ref(0);
 const spuFormRef = ref<any>();
-
+const skuFormRef = ref<any>();
+//存储全部的SKU数据
+let skuArr = ref<SkuData[]>([]);
+let show = ref<boolean>(false);
 watch(
   () => categoryStore.c3Id,
   () => {
@@ -140,6 +180,19 @@ function changeScene(obj: any) {
     getSpu();
   }
 }
+
+function addSku(skuData: any) {
+  sence.value = 2;
+  skuFormRef.value.initSkuData(categoryStore.c1Id, categoryStore.c2Id, skuData);
+} //查看SKU列表的数据
+const findSku = async (row: SpuData) => {
+  let result: SkuInfoData = await reqSkuList(row.id as number);
+  if (result.code == 200) {
+    skuArr.value = result.data;
+    //对话框显示出来
+    show.value = true;
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>
