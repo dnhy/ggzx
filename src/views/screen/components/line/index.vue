@@ -61,7 +61,7 @@ onMounted(() => {
     series: [
       {
         type: 'line',
-        data: [120, 1240, 66, 2299, 321, 890, 1200],
+        data: [120, 520, 66, 999, 321, 890, 1200],
         //平滑曲线的设置
         smooth: true,
         //区域填充样式
@@ -75,7 +75,7 @@ onMounted(() => {
             colorStops: [
               {
                 offset: 0,
-                color: 'red', // 0% 处的颜色
+                color: 'skyblue', // 0% 处的颜色
               },
               {
                 offset: 1,

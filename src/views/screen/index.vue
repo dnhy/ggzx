@@ -13,7 +13,11 @@
           <Map class="map" />
           <Line class="line"></Line>
         </div>
-        <div class="right">right</div>
+        <div class="right">
+          <Range />
+          <Year />
+          <Channel />
+        </div>
       </div>
     </div>
   </div>
@@ -28,6 +32,9 @@ import Gender from './components/gender/index.vue';
 import Age from './components/age/index.vue';
 import Map from './components/map/index.vue';
 import Line from './components/line/index.vue';
+import Range from './components/range/index.vue';
+import Year from './components/year/index.vue';
+import Channel from './components/channel/index.vue';
 
 const screen = ref<HTMLInputElement | null>(null);
 
